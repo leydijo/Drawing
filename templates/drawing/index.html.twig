@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Drawing Result{% endblock %}
+
+{% block body %}
+<h1 class="mb-4">Cargar Archivo</h1>
+
+<form action="{{ path('app_drawing') }}" method="post" enctype="multipart/form-data" class="mb-4">
+    <div class="mb-3">
+        <label for="inputFile" class="form-label">Subir archivo:</label>
+        <input class="form-control" type="file" name="inputFile" id="inputFile" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+
+{% if drawing is defined and drawing is not null %}
+    <h2 class="mt-5">Resultado:</h2>
+    <div class="bg-light p-3 border rounded">
+        <pre class="mb-3">
+{% for row in drawing %}
+{{ row|join('') }}
+{% endfor %}
+        </pre>
+        <a href="{{ asset('output.txt') }}" download="output.txt" class="btn btn-success">Descargar Archivo</a>
+    </div>
+{% endif %}
+{% endblock %}
+
